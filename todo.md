@@ -10,3 +10,4 @@
 - [ ] add examples for bucket object versions
 - [ ] add examples for bucket versioning
 - [ ] add examples for bucket website
+- [ ] add examples for bucket Multipart Uploads
