@@ -11,3 +11,6 @@
 - [ ] add examples for bucket versioning
 - [ ] add examples for bucket website
 - [ ] add examples for bucket Multipart Uploads
+- [ ] add examples for object metadata
+- [ ] add examples for object acl
+
