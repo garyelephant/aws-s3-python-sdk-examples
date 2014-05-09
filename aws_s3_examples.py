@@ -9,10 +9,11 @@ import urllib
 
 import boto.s3.connection
 import boto.s3.key
+import conf
 
 def test():
     print '--- running AWS s3 examples ---'
-    c = boto.s3.connection.S3Connection('<YOUR_AWS_ACCESS_KEY>', '<YOUR_AWS_SECRET_KEY>')
+    c = boto.s3.connection.S3Connection(conf.AWS_ACCESS_KEY, conf.AWS_SECRET_ACCESS_KEY)
 
     print 'original bucket number:', len(c.get_all_buckets())
     
