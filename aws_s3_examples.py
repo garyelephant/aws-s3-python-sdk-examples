@@ -50,12 +50,30 @@ def test():
     print 'add some objects to bucket ', bucket_name
     keys = ['sample.txt', 'notes/2006/January/sample.txt', 'notes/2006/February/sample2.txt',\
            'notes/2006/February/sample3.txt', 'notes/2006/February/sample4.txt', 'notes/2006/sample5.txt']
-    print 'these key names are:'
+    print ' ' * 4, 'these key names are:'
     for name in keys:
-        print ' ' * 4, name
-        key = bucket.new_key(name)
+        print ' ' * 8, name
+    
+    filename = './_test_dir/sample.txt'
+    print ' ' * 4, 'you can contents of object(\'%s\') from filename(\'%s\')' % (keys[0], filename,)
+    key = boto.s3.key.Key(bucket, keys[0])
+    bytes_written = key.set_contents_from_filename(filename)
+    assert bytes_written == os.path.getsize(filename), '    error occured:broken file'
+        
+    print ' ' * 4, 'or set contents of object(\'%s\') by opened file object' % (keys[1],)
+    fp = open(filename, 'r')
+    key = boto.s3.key.Key(bucket, keys[1])
+    bytes_written = key.set_contents_from_file(fp)
+    assert bytes_written == os.path.getsize(filename), '    error occured:broken file'
+
+    print ' ' * 4, 'you can also set contents the remaining key objects from string'
+    for name in keys[2:]:
+        print ' ' * 8, 'key:', name
+        key = boto.s3.key.Key(bucket, name)
         s = 'This is the content of %s ' % (name,)
         key.set_contents_from_string(s)
+        print ' ' * 8, '..contents:', key.get_contents_as_string()
+        # use get_contents_to_filename() to save contents to a specific file in the filesystem.
 
     #print 'You have %d objects in bucket %s' % ()    
     
