@@ -79,9 +79,15 @@ def test():
     #print 'You have %d objects in bucket %s' % ()    
     
     print 'list all objects added into \'%s\' bucket' % (bucket_name,)
-    objs = bucket.list()
-    for key in objs:
+    print ' ' * 4, 'list() automatically handles all of the result paging from S3.'
+    print ' ' * 4, 'You just need to keep iterating until there are no more results.'
+    print ' ' * 4, '---------------------------------------------------------------'
+    bucket_size = 0
+    for key in bucket.list():
         print ' ' * 4, key.name
+        bucket_size += key.size
+    print ' ' * 4, 'bucket size:', bucket_size, 'bytes.'
+    # do not caculate bucket size or number of objects when you have millions of objects in a bucket.
 
     p = 'notes/2006/'
     print 'list objects start with \'%s\'' % (p,)
@@ -125,6 +131,7 @@ def test():
     #references:
     #  [1] http://docs.pythonboto.org/
     #  [2] amazon s3 api references
+    #  [3] http://blogs.scalablelogic.com/2014/01/getting-size-and-file-count-of-25.html
 
 if __name__ == '__main__':
     test()
